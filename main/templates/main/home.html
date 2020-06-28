@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FitBit Demo App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #afd3e8;
+      height: 200%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+
+  .fitBitbtn {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+
+
+}
+.fitBitbtn:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <hr>
+      <br>
+      <h3>FitBit is a physical activity tracker designed to help you become more active, eat a more well-rounded diet, sleep better and ultimately, turn you into a healthier human being</h3>
+      <br>
+      <hr><hr>
+      <br>
+      <h4>Hi... {{user}} , This is your fitbit records </h4>
+      <hr><hr>
+      {% if fitbitdatas %}
+      <table>
+        <tr>
+          <th>Resourse Type</th>
+          <th>Date</th>
+          <th>Value</th>
+        </tr>
+        {% for data in fitbitdatas %}
+        <tr>
+          <td>{{ data.resource_type }}</td>
+          <td>{{ data.date }}</td>
+          <td>{{ data.value }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+        <h4>You doesn't have any fitbit records </h4>
+      {% endif %}
+
+    </div>
+    <div class="col-sm-2 sidenav">
+      {% if not fitbitdatas %}
+      <div class="well">
+	   <p>Click here to Access your FitBit Datas</p>
+      <button type="submit" class="fitBitbtn" onclick="location.href='{% url 'fitbit-login'%}';">Go to FitBit</button>
+       </div>
+       {% else %}
+       <div class="well">
+       <p>Click here to Access your Updated FitBit Datas</p>
+      <button type="submit" class="fitBitbtn" onclick="location.href='{% url 'user-data'%}';">Sync FitBit</button>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- <footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer> -->
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
